@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}<h1>Importação CSV/XLSX</h1>
+<p>Colunas esperadas: {{ ', '.join(['codigo_interno','codigo_barras','nome_produto','descricao','categoria','unidade_medida','marca_fabricante','fornecedor','valor_custo','valor_venda','estoque_minimo','numero_lote','quantidade_inicial_lote','quantidade_atual_lote','data_fabricacao','data_validade','localizacao_fisica','responsavel_conferencia','data_conferencia','observacoes']) }}</p>
+<form method="post" enctype="multipart/form-data"><input type="hidden" name="action" value="preview"><input type="file" name="file" required><button>Pré-visualizar</button></form>
+{% if preview %}<h2>Pré-visualização ({{preview|length}} linhas)</h2><table><tr><th>Código</th><th>Nome</th><th>Lote</th><th>Validade</th></tr>{% for r in preview %}<tr><td>{{r.codigo_interno}}</td><td>{{r.nome_produto}}</td><td>{{r.numero_lote}}</td><td>{{r.data_validade}}</td></tr>{% endfor %}</table><form method="post"><input type="hidden" name="action" value="confirm"><button>Confirmar importação</button></form>{% endif %}
+{% if errors %}<h2>Erros de validação</h2><ul>{% for e in errors %}<li>{{e}}</li>{% endfor %}</ul>{% endif %}
+{% if report %}<h2>Relatório final</h2><ul><li>Produtos criados: {{report.created_products}}</li><li>Produtos atualizados: {{report.updated_products}}</li><li>Lotes criados: {{report.created_lots}}</li><li>Erros: {{report.errors|length}}</li></ul>{% endif %}
+{% endblock %}
