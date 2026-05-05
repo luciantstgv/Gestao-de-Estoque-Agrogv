@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% block content %}<h1>Relatórios básicos</h1><p><b>Valor estimado em risco (<=30 dias):</b> R$ {{'%.2f'|format(risk)}}</p>
+<h2>Produtos vencidos</h2><ul>{% for x in expired %}<li>{{x.product_name}} - {{x.lot_number}} ({{x.expiry_date}})</li>{% endfor %}</ul>
+<h2>Vencendo em 30 dias</h2><ul>{% for x in r30 %}<li>{{x.product_name}} - {{x.lot_number}}</li>{% endfor %}</ul>
+<h2>Vencendo em 60 dias</h2><ul>{% for x in r60 %}<li>{{x.product_name}} - {{x.lot_number}}</li>{% endfor %}</ul>
+<h2>Vencendo em 90 dias</h2><ul>{% for x in r90 %}<li>{{x.product_name}} - {{x.lot_number}}</li>{% endfor %}</ul>
+<h2>Produtos com estoque baixo</h2><table><tr><th>Código</th><th>Produto</th><th>Estoque</th><th>Mínimo</th></tr>{% for x in low_stock %}<tr><td>{{x.internal_code}}</td><td>{{x.name}}</td><td>{{x.stock}}</td><td>{{x.min_stock}}</td></tr>{% endfor %}</table>
+<h2>Produtos sem lote</h2><ul>{% for x in no_lot %}<li>{{x.internal_code}} - {{x.name}}</li>{% endfor %}</ul>
+<h2>Histórico de vendas</h2><table><tr><th>Data</th><th>Nº</th><th>Produto</th><th>Qtd</th><th>Total</th></tr>{% for s in sales %}<tr><td>{{s.sale_date}}</td><td>{{s.sale_number}}</td><td>{{s.product_name}}</td><td>{{s.quantity}}</td><td>{{s.total_value}}</td></tr>{% endfor %}</table>
+<h2>Histórico de movimentações</h2><table><tr><th>Data</th><th>Produto</th><th>Lote</th><th>Tipo</th><th>Qtd</th><th>Usuário</th></tr>{% for m in movements %}<tr><td>{{m.moved_at}}</td><td>{{m.product_name}}</td><td>{{m.lot_number}}</td><td>{{m.movement_type}}</td><td>{{m.quantity}}</td><td>{{m.user_name}}</td></tr>{% endfor %}</table>
+{% endblock %}

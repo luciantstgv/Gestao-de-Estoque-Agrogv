@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block content %}
+<h1>Dashboard</h1>
+<div class="cards">
+<div>Total de produtos: {{stats.products}}</div><div>Total de lotes: {{stats.lots}}</div><div>Produtos vencidos: {{stats.expired}}</div><div>Vencendo até 30 dias: {{stats.v30}}</div><div>Vencendo até 60 dias: {{stats.v60}}</div><div>Vencendo até 90 dias: {{stats.v90}}</div><div>Estoque baixo: {{stats.low_stock}}</div><div>Valor estimado em risco: R$ {{'%.2f'|format(stats.risk)}}</div>
+</div>{% endblock %}
